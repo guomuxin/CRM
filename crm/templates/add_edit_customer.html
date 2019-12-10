@@ -1,0 +1,41 @@
+{% extends 'starter.html' %}
+{% block content %}
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% for i in customerForm %}
+{#    {% if i.label == "转介绍自学员" %}#}
+{#        <div class="row" id="zhuan">#}
+{#            <label for="{{ i.id_for_label }}">{{ i.label }}</label>#}
+{#            {{ i }}#}
+{#            <span style="color: red">{{ i.errors.0 }}</span>#}
+{#        </div>#}
+{#    {% elif i.label == "客户来源" %}#}
+{#        <div class="row" id="source">#}
+{#            <label for="{{ i.id_for_label }}">{{ i.label }}</label>#}
+{#            {{ i }}#}
+{#            <span style="color: red">{{ i.errors.0 }}</span>#}
+{#        </div>#}
+{#    {% endif %}#}
+    <div class="row">
+        <label for="{{ i.id_for_label }}">{{ i.label }}</label>
+        {{ i }}
+        <span style="color: red">{{ i.errors.0 }}</span>
+    </div>
+    {% endfor %}
+    <input type="submit">
+</form>
+
+{% endblock %}
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+{% block js %}
+{#    <script>#}
+{#        zhuan = $('#zhuan').find('select')#}
+{#        zhuan.attr('disabled', 'disabled')#}
+{#        if ($('#source').find('select').val() == 'referral'){#}
+{#            zhuan.removeAttr('disabled')#}
+{#        }#}
+{#    </script>#}
+{% endblock %}
