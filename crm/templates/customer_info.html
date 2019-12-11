@@ -32,6 +32,8 @@
                 <option value="trans_stg">私转公</option>
 
             {% endif %}
+            <option value="bulk_del">批量删除</option>
+
         </select>
         <input type="submit" id="sub_search" class="pull-left" style="height: 100%" value="执行">
     </span>
@@ -46,6 +48,10 @@
                 <th>性别</th>
                 <th>询问课程</th>
                 <th>状态</th>
+                {% if tag == 2 %}
+                    <th>跟进记录</th>
+
+                {% endif %}
                 <th>客户来源</th>
                 <th>销售人员</th>
                 <th>操作</th>
@@ -61,21 +67,20 @@
                     <td>{{ i.get_sex_display }}</td>
                     <td>{{ i.get_course_display }}</td>
                     <td>{{ i.get_status_display }}</td>
+                    {% if tag == 2 %}
+                        <td><a href="{% url 'consult_record_one' i.id %}">查看记录</a></td>
+
+                    {% endif %}
                     <td>{{ i.get_source_display }}</td>
                     <td>{{ i.consultant.username|default:"暂无" }}</td>
                     <td style="text-align: center">
                         <a href="{% url_handle 'edit_customer' i.id request %}" title="编辑">
-{#                        <a href="http://127.0.0.1:8000/edit_customer/{{ i.id }}" title="编辑">#}
-                        <li class="fa fa-pencil"></li>
-                    </a>
+                            {#                        <a href="http://127.0.0.1:8000/edit_customer/{{ i.id }}" title="编辑">#}
+                            <li class="fa fa-pencil"></li>
+                        </a>
                         &nbsp|&nbsp
-                        {% if tag == 1 %}
-                            <a href="http://127.0.0.1:8000/del_customer/{{ i.id }}/1" title="删除">
-                        {% else %}
-                            <a href="http://127.0.0.1:8000/del_customer/{{ i.id }}/2" title="删除">
-
-                        {% endif %}
-                        <li class="fa fa-remove"></li> </td>
+                            <a href="{% url_handle 'del_customer' i.id request %}" title="删除">
+                        <li class="fa fa-remove"></li></td>
                     </a>
                 </tr>
             {% endfor %}
@@ -90,27 +95,13 @@
     <script>
         $('#all').click(function () {
             console.log($(this).prop('checked'))
-            if($(this).prop('checked')){
-                $('[type=checkbox]').prop('checked',true)
-            }
-            else {
-                $('[type=checkbox]').prop('checked',false)
+            if ($(this).prop('checked')) {
+                $('[type=checkbox]').prop('checked', true)
+            } else {
+                $('[type=checkbox]').prop('checked', false)
 
             }
         })
     </script>
-    {#    <script>#}
-    {#        $('#sub_search').click(function () {#}
-    {#            search_val = $('#search').val()#}
-    {#            search_content = $('#search_content').val()#}
-    {#            $.ajax({#}
-    {#                url:'customer_info/',#}
-    {#                type:'post',#}
-    {#                data:{'search_val':search_val,'search_content':search_content,'csrfmiddlewaretoken':'{{ csrf_token }}'},#}
-    {#                success:function () {#}
-    {#                    #}
-    {#                }#}
-    {#            })#}
-    {#        })#}
-    {#    </script>#}
+
 {% endblock %}

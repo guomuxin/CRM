@@ -1,0 +1,66 @@
+{% extends 'starter.html' %}
+{% load mytags %}
+{% block title %}
+    报名表
+{% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="get" style="height: 30px;margin-bottom: -30px" class="">
+            {#            {% csrf_token %}#}
+            <select name="search" id="search" class="pull-left" style="height: 100%">
+                <option value="customer__name__contains">姓名</option>
+                <option value="status__contains">跟进状态</option>
+            </select>
+            <input type="text" id="search_content" name="search_content" class="pull-left" style="height: 100%">
+            <input type="submit" id="sub_search" class="pull-left" style="height: 100%" value="搜索">
+        </form>
+            <a href="{% url 'enrollment_add' %}">
+                <button class="btn btn-danger pull-right" style="margin-bottom: 10px">添加报名表</button>
+            </a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>为什么报名</th>
+            <th>学完想达到的具体期望</th>
+            <th>审批通过</th>
+            <th>报名日期</th>
+            <th>备注</th>
+            <th>客户名称</th>
+            <th>校区</th>
+            <th>所报班级</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in enrollment_all %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.why_us }}</td>
+                <td>{{ i.your_expectation }}</td>
+                <td>{{ i.contract_approved }}</td>
+                <td>{{ i.enrolled_date|date:"Y-m-d" }}</td>
+                <td>{{ i.memo }}</td>
+                <td>{{ i.customer }}</td>
+                <td>{{ i.school }}</td>
+                <td>{{ i.enrolment_class }}</td>
+
+                <td style="text-align: center">
+                    <a href="{% url_handle 'enrollment_edit' i.id request %}" title="编辑">
+                        <li class="fa fa-pencil"></li>
+                    </a>
+                    &nbsp|&nbsp
+                    <a href="{% url_handle 'enrollment_del' i.id request %}" title="删除">
+                        <li class="fa fa-remove"></li></td>
+                </a>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {{ html|safe }}
+{% endblock %}

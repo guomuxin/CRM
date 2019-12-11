@@ -1,0 +1,5 @@
+1.	Python2源码不统一，有重复代码；
+	Python3源码统一，没有重复代码
+2.	Python2中input接收内容的类型与输入的一致，raw_input则无论输入的是什么，接收的都是字符	串
+	Python3input与Python2的raw_input一样，接收的永远是字符串
+

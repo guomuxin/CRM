@@ -4,19 +4,7 @@
 <form action="" method="post" novalidate>
     {% csrf_token %}
     {% for i in customerForm %}
-{#    {% if i.label == "转介绍自学员" %}#}
-{#        <div class="row" id="zhuan">#}
-{#            <label for="{{ i.id_for_label }}">{{ i.label }}</label>#}
-{#            {{ i }}#}
-{#            <span style="color: red">{{ i.errors.0 }}</span>#}
-{#        </div>#}
-{#    {% elif i.label == "客户来源" %}#}
-{#        <div class="row" id="source">#}
-{#            <label for="{{ i.id_for_label }}">{{ i.label }}</label>#}
-{#            {{ i }}#}
-{#            <span style="color: red">{{ i.errors.0 }}</span>#}
-{#        </div>#}
-{#    {% endif %}#}
+
     <div class="row">
         <label for="{{ i.id_for_label }}">{{ i.label }}</label>
         {{ i }}

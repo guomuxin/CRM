@@ -1,0 +1,59 @@
+{% extends 'starter.html' %}
+{% load mytags %}
+{% block title %}
+    跟进记录
+{% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="get" style="height: 30px;margin-bottom: -30px" class="">
+            {#            {% csrf_token %}#}
+            <select name="search" id="search" class="pull-left" style="height: 100%">
+                <option value="customer__name__contains">姓名</option>
+                <option value="status__contains">跟进状态</option>
+            </select>
+            <input type="text" id="search_content" name="search_content" class="pull-left" style="height: 100%">
+            <input type="submit" id="sub_search" class="pull-left" style="height: 100%" value="搜索">
+        </form>
+            <a href="{% url 'consult_record_add' %}">
+                <button class="btn btn-danger pull-right" style="margin-bottom: 10px">添加记录</button>
+            </a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>备注</th>
+            <th>跟进状态</th>
+            <th>销售人员</th>
+            <th>跟进日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in consult_record_obj %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td disabled="disabled">{{ i.customer }}</td>
+                <td>{{ i.note }}</td>
+                <td>{{ i.get_status_display }}</td>
+                <td>{{ i.consultant }}</td>
+                <td>{{ i.date|date:"Y-m-d" }}</td>
+                <td style="text-align: center">
+                    <a href="{% url_handle 'consult_record_edit' i.id request %}" title="编辑">
+                        <li class="fa fa-pencil"></li>
+                    </a>
+                    &nbsp|&nbsp
+                    <a href="{% url_handle 'consult_record_del' i.id request %}" title="删除">
+                        <li class="fa fa-remove"></li></td>
+                </a>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {{ html|safe }}
+{% endblock %}

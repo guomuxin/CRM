@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #zhengti{
+            background-color: black;
+            width: 100%;
+            height:40px
+        }
+        #zuobian{
+            width: 55%;
+            height: 40px;
+            background-color: black;
+            font-size: 13px;
+            text-align: left;
+            line-height: 40px;
+            margin-left: 5%;
+            float: left;
+        }
+        #zhengti a{
+            color: darkgrey;
+            text-decoration: none;
+        }
+        #youbian{
+            font-size: 13px;
+            width: 35%;
+            height: 40px;
+            background-color: black;
+            text-align: right;
+            line-height: 40px;
+            margin-right: 5%;
+            float: right;
+        }
+        #shopping{
+            width: 20%;
+            height: 100%;
+            background-color: darkslategray;
+            float: right;
+            position: relative;
+            text-align: center;
+            margin-left: 40px;
+        }
+        #neirong{
+            width: 350px;
+            height: 100px;
+            background-color: blanchedalmond;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            display: none;
+        }
+        #shopping:hover #neirong{
+            display: block;
+            z-index: 10;
+        }
+        #xiazai_a:hover #xiazai{
+            display: block;
+        }
+        #xiazai_a:hover{
+            color: darkorange;
+        }
+        #xiazai{
+            background-color: deeppink;
+            height: 80px;
+            width: 80px;
+            position: absolute;
+            left: -15px;
+            display: none;
+
+        }
+        .clearfix:after{
+            content: "";
+            display: block;
+            clear:both;
+        }
+        #daohang a{
+        color: black;
+        text-decoration: none;
+        }
+        #daohang{
+            background-color: white;
+            width: 90%;
+            height: 100px;
+            margin-left: 5%;
+            color: black;
+            line-height: 100px;
+
+        }
+        #logo{
+            height: 100%;
+            width: 11%;
+
+            position: relative;
+            line-height: 100px;
+            float: left;
+        }
+        #daohanglan{
+
+            height: 100%;
+            width: 63%;
+            text-align: center;
+            font-size: 16px;
+            color: black;
+            float: right;
+        }
+        #logo_img{
+            position: absolute;
+            top: 13.5px;
+        }
+        #sousuokuang{
+
+            width: 26%;
+            height: 100%;
+            position: relative;
+            float: right;
+        }
+        #shuru{
+            height: 50%;
+            width: 81%;
+            position: absolute;
+            top: 22.5%;
+            right: 56.93px;
+            margin-right: 0;
+
+            border: 1px solid gray;
+
+        }
+        #tubiao{
+            height: 50%;
+            width: 17%;
+            position: absolute;
+            text-align: center;
+            line-height: 300%;
+            top: 22.5%;
+            right: 0;
+            padding-bottom: 1px;
+            padding-top: 1px;
+            border: 1px solid gray;
+            float: right;
+        }
+        #zhu{
+            background-image: url("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a012edbf0cf3bf3b1de22b78c19ad050.jpg?thumb=1&w=1533&h=575&f=webp&q=90 ");
+            /*background-repeat: no-repeat;*/
+            width: 90%;
+            height: 575px;
+            margin-left: 5%;
+
+        }
+        #zuoce{
+            width: 18%;
+            height: 100%;
+            position: relative;
+            background-color: rgba(105,101,101,0.6);
+            opacity: 0.6;
+            float: left;
+
+        }
+        #zuoce_zong{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 28.75px;
+            bottom: 28.75px;
+        }
+        .zuoce_daohang{
+            height: 9%;
+            width: 100%;
+            line-height: 51.75px;
+        }
+        #youce{
+            height: 100%;
+            width: 82%;
+
+            opacity: 1.0;
+            float: right;
+
+        }
+        .zuodezuo{
+            height: 100%;
+            width: 70%;
+            text-align: center;
+            color: white;
+            float: left;
+        }
+        .zuodeyou{
+            height: 100%;
+            width: 30%;
+            float: right;
+            color: white;
+            text-align: center;
+        }
+        #xiamian{
+            margin-top: 20px;
+            height: 170px;
+            width: 90%;
+            margin-left: 5%;
+
+        }
+        #no1{
+            height: 100%;
+            width: 18%;
+            background-color: rgba(7,12,59,0.99);
+            float: left;
+            margin-right: 10px;
+        }
+        .tu{
+            height: 100%;
+            width: 23%;
+            float: right;
+            margin-left: 50px;
+
+        }
+        .zuoce_daohang:hover{
+            background-color: darkorange;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="zhengti" class="clearfix">
+        <div id="zuobian">
+            <a href="">小米商城</a>
+            <span style="color: darkslategray"> | </span>
+            <a href="">MIUI</a>
+            <span style="color: darkslategray"> | </span>
+            <a href="">IoT</a>
+            <span style="color: darkslategray"> | </span>
+            <a href="">云服务</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">金融</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">有品</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">小爱开放平台</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">企业团购</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">资质证照</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">协议规则</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="" style="position: relative" id="xiazai_a">下载app
+                <div id="xiazai"></div>
+            </a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">Select Location</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+        </div>
+        <div id="youbian">
+            <a href="">登录</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">注册</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">消息通知</a>
+            <span id="shopping">
+                <a href="">购物车</a>
+                <div id="neirong">
+                    购物信息
+                </div>
+            </span>
+        </div>
+
+    </div>
+    <div id="daohang">
+        <div id="logo">
+            <img src="xiaomi.png" alt="图片加载错误" id="logo_img">
+        </div>
+        <div id="sousuokuang">
+            <div id="tubiao">
+                🔍
+            </div>
+            <input type="text" id="shuru">
+
+        </div>
+        <div id="daohanglan">
+            <a href="">小米手机&nbsp&nbsp</a>
+            <a href="">&nbspRedmi 红米&nbsp&nbsp</a>
+            <a href="">&nbsp电视&nbsp&nbsp</a>
+            <a href="">&nbsp笔记本&nbsp&nbsp</a>
+            <a href="">&nbsp家电&nbsp&nbsp</a>
+            <a href="">&nbsp路由器&nbsp&nbsp</a>
+            <a href="">&nbsp智能硬件&nbsp&nbsp</a>
+            <a href="">&nbsp服务&nbsp&nbsp</a>
+            <a href="">&nbsp社区</a>
+        </div>
+
+    </div>
+    <div id="zhu">
+        <div id="zuoce">
+            <div id="zuoce_zong">
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        手机 电话卡
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        电视 盒子
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        笔记本 平板
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        家电 插线板
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        出行 穿戴
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        智能 路由器
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        电源 配件
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        健康 儿童
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        耳机 音箱
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+                <a href="http://www.baidu.com">
+                <div class="zuoce_daohang">
+                    <div class="zuodezuo">
+                        生活 箱包
+                    </div>
+                    <div class="zuodeyou">
+                        >
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div id="youce">
+
+        </div>
+    </div>
+    <div id="xiamian">
+        <div id="no1">
+
+        </div>
+        <div id="no2" class="tu">
+            <img src="noo2.png" alt="" width="100%">
+        </div>
+        <div id="no3" class="tu">
+            <img src="noo3.png" alt="" width="100%">
+        </div>
+        <div id="no4" class="tu">
+            <img src="noo4.png" alt="" width="100%">
+        </div>
+    </div>
+
+</body>
+
+</html>

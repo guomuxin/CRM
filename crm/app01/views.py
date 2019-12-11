@@ -57,14 +57,14 @@ class Customer_Info(View):
     def get(self, request):
         current_page_num = request.GET.get('page')
         if request.path == reverse('customer_info'):
-            count_customer = models.Customer.objects.count()
+            count_customer = models.Customer.objects.filter(delete_status=False,consultant__isnull=True).count()
             pa = pagination.Pagination(current_page_num, count_customer)
             customer_all = models.Customer.objects.filter(delete_status=False,consultant__isnull=True)[pa.data_start_fun():pa.data_end_fun()]
             # tag为1表示要看的公共客户
             tag = 1
         else:
             count_customer = models.Customer.objects.filter(
-                consultant__username=request.session.get('username')).count()
+                consultant__username=request.session.get('username'),delete_status=False).count()
             pa = pagination.Pagination(current_page_num, count_customer)
             customer_all = models.Customer.objects.filter(delete_status=False,consultant__username=request.session.get('username'))[
                            pa.data_start_fun():pa.data_end_fun()]
@@ -75,10 +75,16 @@ class Customer_Info(View):
         search_content = request.GET.get('search_content')
         if search_val and search_content:
             info = f'search={search_val}&search_content={search_content}&'
-            count_customer = models.Customer.objects.filter(**{search_val: search_content}).count()
-            pa = pagination.Pagination(current_page_num, count_customer, info)
-            customer_all = models.Customer.objects.filter(**{search_val: search_content})[
-                           pa.data_start_fun():pa.data_end_fun()]
+            if tag == 1:
+                count_customer = models.Customer.objects.filter(**{search_val: search_content},delete_status=False, consultant__isnull=True).count()
+                pa = pagination.Pagination(current_page_num, count_customer, info)
+                customer_all = models.Customer.objects.filter(**{search_val: search_content},delete_status=False, consultant__isnull=True)[
+                               pa.data_start_fun():pa.data_end_fun()]
+            else:
+                count_customer = models.Customer.objects.filter(**{search_val: search_content},delete_status=False, consultant__username=request.session.get('username')).count()
+                pa = pagination.Pagination(current_page_num, count_customer, info)
+                customer_all = models.Customer.objects.filter(**{search_val: search_content},delete_status=False, consultant__username=request.session.get('username'))[
+                               pa.data_start_fun():pa.data_end_fun()]
             html = pa.html()
         return render(request, 'customer_info.html', {'customer_all': customer_all, 'html': html, 'tag': tag})
 
@@ -112,6 +118,14 @@ class Customer_Info(View):
         )
         return redirect('private_customer')
 
+    def bulk_del(self, request, choice):
+        models.Customer.objects.filter(id__in=choice).update(
+            delete_status=True
+        )
+        if request.path == reverse('customer_info'):
+            return redirect('customer_info')
+        else:
+            return redirect('private_customer')
 class Add_Edit_Customer(View):
 
     def get(self, request, cid=None):
@@ -137,17 +151,131 @@ class Add_Edit_Customer(View):
 
 
 class Del_Customer(View):
-    def get(self, request, cid, tag):
+    def get(self, request, cid):
         models.Customer.objects.filter(id=cid).update(
             delete_status=True
         )
-        if tag == "1":
-            return redirect('customer_info')
-        else:
-            return redirect('private_customer')
+        next = request.GET.get("next")
+        return redirect(next)
+
 
 
 class Logout(View):
     def get(self, request):
         request.session.flush()
         return redirect('login')
+
+
+class Consult_Record(View):
+    def get(self, request, cid=None):
+        # con_re_form = myforms.ConsultRecordForm()
+        current_page_num = request.GET.get('page')
+        if not current_page_num:
+            current_page_num = 1
+        if cid:
+            count_record = models.ConsultRecord.objects.filter(customer__id=cid, delete_status=False,
+                                                               consultant__username=request.session.get(
+                                                                   'username')).count()
+            pa = pagination.Pagination(current_page_num, count_record)
+            consult_record_obj = models.ConsultRecord.objects.filter(customer__id=cid, delete_status=False,
+                                                                     consultant__username=request.session.get(
+                                                                         'username'))[pa.data_start_fun():
+                                                                                      pa.data_end_fun()]
+        else:
+            count_record = models.ConsultRecord.objects.filter(delete_status=False,
+                                                               consultant__username=request.session.get(
+                                                                   'username')).count()
+            pa = pagination.Pagination(current_page_num, count_record)
+            consult_record_obj = models.ConsultRecord.objects.filter(delete_status=False, consultant__username=request.session.get('username'))[
+                           pa.data_start_fun():pa.data_end_fun()]
+        search_val = request.GET.get('search')
+        search_content = request.GET.get('search_content')
+        seek_status_choices = (('A', '近期无报名计划'), ('B', '1个月内报名'), ('C', '2周内报名'), ('D', '1周内报名'),
+                               ('E', '定金'), ('F', '到班'), ('G', '全款'), ('H', '无效'),)
+
+        if search_val and search_content:
+            for i in seek_status_choices:
+                if search_content in i:
+                    search_content = i[0]
+            info = f'search={search_val}&search_content={search_content}&'
+            count_record = models.ConsultRecord.objects.filter(**{search_val: search_content},delete_status=False, consultant__username=request.session.get(
+                                                                   'username')).count()
+            pa = pagination.Pagination(current_page_num, count_record, info)
+            consult_record_obj = models.ConsultRecord.objects.filter(**{search_val: search_content},delete_status=False, consultant__username=request.session.get('username'))[
+                           pa.data_start_fun():pa.data_end_fun()]
+        html = pa.html()
+        return render(request, 'consult_record.html', {'consult_record_obj': consult_record_obj,'html':html})
+
+
+class Consult_Record_Edit(View):
+    def get(self, request, cid=None):
+        if cid:
+            consult_re_obj = models.ConsultRecord.objects.filter(id=cid)[0]
+            consult_re_form = myforms.ConsultRecordForm(request, instance=consult_re_obj)
+        else:
+            consult_re_form = myforms.ConsultRecordForm(request)
+        return render(request, 'add_edit_consult_record.html', {'consult_re_form':consult_re_form})
+    def post(self, request, cid=None):
+        if cid:
+            consult_re_obj = models.ConsultRecord.objects.filter(id=cid)[0]
+            consult_re_form = myforms.ConsultRecordForm(request, request.POST,instance=consult_re_obj)
+        else:
+            consult_re_form = myforms.ConsultRecordForm(request, request.POST)
+
+        if consult_re_form.is_valid():
+            consult_re_form.save()
+            if request.path == reverse("consult_record_add"):
+                return redirect('consult_record')
+            else:
+                return redirect(request.GET.get('next'))
+        else:
+            return render(request, 'add_edit_consult_record.html', {'consult_re_form':consult_re_form})
+
+
+class Consult_Record_Del(View):
+    def get(self, request, cid):
+        models.ConsultRecord.objects.filter(id=cid).update(
+            delete_status=True
+        )
+        return redirect(request.GET.get('next'))
+
+
+class EnrollmentInfo(View):
+    def get(self, request):
+        enrollment_all = models.Enrollment.objects.all().filter(delete_status=False)
+        return render(request, 'enrollment.html', {'enrollment_all': enrollment_all})
+
+
+
+
+class EnrollmentAddEdit(View):
+    def get(self, request, cid=None):
+        if cid:
+            enrollment_obj = models.Enrollment.objects.filter(id=cid)[0]
+            enrollment_form = myforms.EnrollmentForm(instance=enrollment_obj)
+        else:
+            enrollment_form = myforms.EnrollmentForm()
+        return render(request, 'enrollment_add_edit.html', {'enrollment_form':enrollment_form})
+    def post(self, request, cid=None):
+        if cid:
+            enrollment_obj = models.Enrollment.objects.filter(id=cid)[0]
+            enrollment_form = myforms.EnrollmentForm(request.POST,instance=enrollment_obj)
+        else:
+            enrollment_form = myforms.EnrollmentForm(request.POST)
+
+        if enrollment_form.is_valid():
+            enrollment_form.save()
+            if request.path == reverse("enrollment_add"):
+                return redirect('enrollment_info')
+            else:
+                return redirect(request.GET.get('next'))
+        else:
+            return render(request, 'enrollment_add_edit.html', {'enrollment_form':enrollment_form})
+
+
+class EnrollmentDel(View):
+    def get(self, request, cid):
+        models.Enrollment.objects.filter(id=cid).update(
+            delete_status=True
+        )
+        return redirect(request.GET.get('next'))

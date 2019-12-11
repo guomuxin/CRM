@@ -89,7 +89,36 @@ class CustomerForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         for i in self.fields.values():
-            print(i.label)
             if i.label == "咨询课程":
                 continue
             i.widget.attrs.update({'class':'form-control'})
+
+
+class ConsultRecordForm(forms.ModelForm):
+    class Meta:
+        model = models.ConsultRecord
+
+        exclude = ['delete_status']
+    def __init__(self, request, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for i in self.fields.values():
+            i.widget.attrs.update({'class': 'form-control'})
+            if i.label == "所咨询客户":
+                i.queryset=models.Customer.objects.filter(consultant__username=request.session.get("username"))
+            if i.label == "跟进人":
+                data = models.Userinfo.objects.filter(username=request.session.get("username"))
+                i.choices = [(j.id, j.username) for j in data]
+
+
+class EnrollmentForm(forms.ModelForm):
+    class Meta:
+        model = models.Enrollment
+        exclude = ['delete_status']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for i in self.fields.values():
+            if i.label == "审批通过":
+                continue
+            i.widget.attrs.update({'class':'form-control'})
+

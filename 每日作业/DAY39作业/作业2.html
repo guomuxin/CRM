@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #zuobian{
+            width: 60%;
+            height: 40px;
+            background-color: black;
+            font-size: 13px;
+            text-align: left;
+            line-height: 40px;
+            float: left;
+        }
+        a{
+            color: darkgrey;
+            text-decoration: none;
+        }
+        #youbian{
+            font-size: 13px;
+            width: 40%;
+            height: 40px;
+            background-color: black;
+            text-align: right;
+            line-height: 40px;
+            float: right;
+        }
+        #shopping{
+            width: 20%;
+            height: 100%;
+            background-color: darkslategray;
+            float: right;
+            position: relative;
+            text-align: center;
+            margin-right: 80px;
+            margin-left: 40px;
+        }
+        #neirong{
+            width: 300px;
+            height: 150px;
+            background-color: blanchedalmond;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            display: none;
+        }
+        #shopping:hover #neirong{
+            display: block;
+        }
+        #xiazai_a:hover #xiazai{
+            display: block;
+        }
+        #xiazai_a:hover{
+            color: darkorange;
+        }
+        #xiazai{
+            background-color: deeppink;
+            height: 80px;
+            width: 80px;
+            position: absolute;
+            left: -15px;
+            display: none;
+
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="zuobian">
+            <div id="i2" style="margin-left: 80px">
+                <a href="">小米商城</a>
+                <span style="color: darkslategray"> | </span>
+                <a href="">MIUI</a>
+                <span style="color: darkslategray"> | </span>
+                <a href="">IoT</a>
+                <span style="color: darkslategray"> | </span>
+                <a href="">云服务</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">金融</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">有品</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">小爱开放平台</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">企业团购</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">资质证照</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">协议规则</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="" style="position: relative" id="xiazai_a">下载app
+                    <div id="xiazai"></div>
+                </a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+                <a href="">Select Location</a>
+                <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            </div>
+
+
+        </div>
+        <div id="youbian">
+            <a href="">登录</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">注册</a>
+            <span style="color: darkslategray;margin-left: 2px;margin-right: 2px"> | </span>
+            <a href="">消息通知</a>
+            <div id="shopping">
+                购物车
+                <div id="neirong">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

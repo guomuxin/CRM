@@ -32,7 +32,16 @@ urlpatterns = [
     url(r'^private_customer/', views.Customer_Info.as_view(),name='private_customer'),
     url(r'^add_customer/', views.Add_Edit_Customer.as_view(),name='add_customer'),
     url(r'^edit_customer/(\d+)', views.Add_Edit_Customer.as_view(),name='edit_customer'),
-    url(r'^del_customer/(\d+)/(\d+)', views.Del_Customer.as_view(),name='del_customer'),
+    url(r'^del_customer/(\d+)', views.Del_Customer.as_view(),name='del_customer'),
     url(r'^logout/', views.Logout.as_view(),name='logout'),
+    url(r'^consult_record/(\d+)', views.Consult_Record.as_view(), name='consult_record_one'),
+    url(r'^consult_record/', views.Consult_Record.as_view(),name='consult_record'),
+    url(r'^consult_record_edit/(\d+)', views.Consult_Record_Edit.as_view(),name='consult_record_edit'),
+    url(r'^consult_record_add/', views.Consult_Record_Edit.as_view(),name='consult_record_add'),
+    url(r'^consult_record_del/(\d+)', views.Consult_Record_Del.as_view(),name='consult_record_del'),
+    url(r'^enrollment/', views.EnrollmentInfo.as_view(),name='enrollment_info'),
+    url(r'^enrollment_add/', views.EnrollmentAddEdit.as_view(),name='enrollment_add'),
+    url(r'^enrollment_edit/(\d+)', views.EnrollmentAddEdit.as_view(),name='enrollment_edit'),
+    url(r'^enrollment_del/(\d+)', views.EnrollmentDel.as_view(),name='enrollment_del'),
 
 ]

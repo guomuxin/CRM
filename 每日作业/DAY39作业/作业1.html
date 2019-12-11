@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #father {
+            /*height: 100px;*/
+            position: relative;
+        }
+        #i1 {
+            /*background: pink url("1.png") no-repeat 10px 10px;*/
+            background-color: pink;
+            height: 1000px;
+            width: 100px;
+
+
+        }
+        #i2 {
+            /*background: pink url("1.png") no-repeat 10px 10px;*/
+            background-color: red;
+            height: 1000px;
+            width: 100px;
+        }
+        #i3 {
+            width: 100%;
+            height: 1000px;
+            background-color: blue;
+            /*clear: both;*/
+        }
+        #i1:hover{
+            background-color: black;
+            cursor: pointer;
+        }
+	    .clearfix:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        a:link{
+            color: pink;
+
+        }
+        a:hover{
+            color: black;
+        }
+        a:active{
+            color: blueviolet;
+        }
+        a:visited{
+            color: darkorange;
+        }
+        #i5:visited{
+            color: deeppink;
+        }
+        a{
+            text-decoration: none;
+        }
+        #i4 {
+            position: fixed;
+            left:40px;
+            bottom:20px;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <div id="start">顶部</div>
+    <div id="father" class="clearfix">
+        <div id="i1">aa</div>
+        <div id="i2">bb</div>
+        <a href="http://www.baidu.com">百度</a>
+    </div>
+    <a id="i5" href="http://www.baidu.com">百度</a>
+    <div id="i3">ccc</div>
+    <div id="i4">
+        <a href="#start">返回顶部</a>
+    </div>
+</body>
+</html>

@@ -217,40 +217,44 @@ class ClassList(models.Model):
 #
 #
 
-# class ConsultRecord(models.Model):
-#     """
-#     跟进记录表
-#     """
-#     customer = models.ForeignKey('Customer', verbose_name="所咨询客户")
-#     note = models.TextField(verbose_name="跟进内容...")
-#     status = models.CharField("跟进状态", max_length=8, choices=seek_status_choices, help_text="选择客户此时的状态")
-#     consultant = models.ForeignKey("UserInfo", verbose_name="跟进人", related_name='records')
-#     date = models.DateTimeField("跟进日期", auto_now_add=True)
-#     delete_status = models.BooleanField(verbose_name='删除状态', default=False)
-#     # def __str__(self):
+class ConsultRecord(models.Model):
+    """
+    跟进记录表
+    """
+    customer = models.ForeignKey('Customer', verbose_name="所咨询客户")
+    note = models.TextField(verbose_name="跟进内容...")
+    status = models.CharField("跟进状态", max_length=8, choices=seek_status_choices, help_text="选择客户此时的状态")
+    consultant = models.ForeignKey("UserInfo", verbose_name="跟进人",)
+    date = models.DateTimeField("跟进日期", auto_now_add=True)
+    delete_status = models.BooleanField(verbose_name='删除状态', default=False)
+    class Meta:
+        verbose_name_plural = '跟进记录表'
+    def __str__(self):
+        return self.customer
 #
 #
-#
-# class Enrollment(models.Model):
-#     """
-#     报名表
-#     """
-#     why_us = models.TextField("为什么报名", max_length=1024, default=None, blank=True, null=True)
-#     your_expectation = models.TextField("学完想达到的具体期望", max_length=1024, blank=True, null=True)
-#     # contract_agreed = models.BooleanField("我已认真阅读完培训协议并同意全部协议内容", default=False)
-#     contract_approved = models.BooleanField("审批通过", help_text="在审阅完学员的资料无误后勾选此项,合同即生效", default=False)
-#     enrolled_date = models.DateTimeField(auto_now_add=True, verbose_name="报名日期")
-#     memo = models.TextField('备注', blank=True, null=True)
-#     delete_status = models.BooleanField(verbose_name='删除状态', default=False)
-#     customer = models.ForeignKey('Customer', verbose_name='客户名称')
-#     school = models.ForeignKey('Campuses')
-#     enrolment_class = models.ForeignKey("ClassList", verbose_name="所报班级")
-#
-#     class Meta:
-#         unique_together = ('enrolment_class', 'customer')
-#
-#     def __str__(self):
-#         return self.customer.name
+class Enrollment(models.Model):
+    """
+    报名表
+    """
+    why_us = models.TextField("为什么报名", max_length=1024, default=None, blank=True, null=True)
+    your_expectation = models.TextField("学完想达到的具体期望", max_length=1024, blank=True, null=True)
+    # contract_agreed = models.BooleanField("我已认真阅读完培训协议并同意全部协议内容", default=False)
+    contract_approved = models.BooleanField("审批通过", help_text="在审阅完学员的资料无误后勾选此项,合同即生效", default=False)
+    enrolled_date = models.DateTimeField(auto_now_add=True, verbose_name="报名日期")
+    memo = models.TextField('备注', blank=True, null=True)
+    delete_status = models.BooleanField(verbose_name='删除状态', default=False)
+    customer = models.ForeignKey('Customer', verbose_name='客户名称')
+    school = models.ForeignKey('Campuses')
+    enrolment_class = models.ForeignKey("ClassList", verbose_name="所报班级")
+
+    class Meta:
+        unique_together = ('enrolment_class', 'customer')
+        verbose_name_plural = '报名表'
+
+
+    def __str__(self):
+        return self.customer.name
 # # class PaymentRecord(models.Model):
 # #     """
 # #     缴费记录表
