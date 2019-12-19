@@ -17,15 +17,19 @@
         </form>
         {% if tag == 1 %}
             <a href="http://127.0.0.1:8000/add_customer">
-                <button class="btn btn-danger pull-right" style="margin-bottom: 10px">添加客户</button>
+                <button class="btn btn-danger float-lg-right" style="margin-bottom: 10px">添加客户</button>
+            </a>
+        {% else %}
+            <a href="{% url 'customer_info' %}">
+                <button class="btn btn-danger float-lg-right" style="margin-bottom: 10px">前往公户</button>
             </a>
         {% endif %}
     </div>
 
     <form action="" method="post">
         {% csrf_token %}
-        <span class="pull-right" style="height: 30px;margin-bottom: -30px;margin-right: 20px">
-        <select name="action" id="action" class="pull-left" style="height: 100%">
+        <span class="float-lg-right" style="height: 30px;margin-bottom: -30px;margin-right: 20px">
+        <select name="action" id="action" class="float-lg-left" style="height: 100%">
             {% if tag == 1 %}
                 <option value="trans_gts">公转私</option>
             {% else %}
@@ -35,7 +39,7 @@
             <option value="bulk_del">批量删除</option>
 
         </select>
-        <input type="submit" id="sub_search" class="pull-left" style="height: 100%" value="执行">
+        <input type="submit" id="sub_search" class="float-lg-left" style="height: 100%" value="执行">
     </span>
         <table class="table table-bordered table-striped">
 
@@ -79,8 +83,8 @@
                             <li class="fa fa-pencil"></li>
                         </a>
                         &nbsp|&nbsp
-                            <a href="{% url_handle 'del_customer' i.id request %}" title="删除">
-                        <li class="fa fa-remove"></li></td>
+                        <a href="{% url_handle 'del_customer' i.id request %}" title="删除">
+                            <li class="fa fa-remove"></li></td>
                     </a>
                 </tr>
             {% endfor %}

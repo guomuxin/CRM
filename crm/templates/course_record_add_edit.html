@@ -1,0 +1,19 @@
+{% extends 'starter.html' %}
+{% block content %}
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% for i in courseRecord_form %}
+
+    <div class="row">
+        <label for="{{ i.id_for_label }}">{{ i.label }}</label>
+        {{ i }}
+        <span style="color: red">{{ i.errors.0 }}</span>
+    </div>
+    {% endfor %}
+    <input type="submit">
+</form>
+
+{% endblock %}
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>

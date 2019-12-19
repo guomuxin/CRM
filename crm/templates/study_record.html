@@ -1,0 +1,46 @@
+{% extends 'starter.html' %}
+{% load mytags %}
+{% block title %}
+    报名表
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+        {{ studyForm.management_form }}
+
+        <input type="submit">
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>考勤</th>
+            <th>本节成绩</th>
+            <th>作业批语</th>
+            <th>备注</th>
+            <th>某节课程</th>
+            <th>学员</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in studyForm %}
+            <tr>
+                {{ i.id }}
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.attendance }}</td>
+                <td>{{ i.score }}</td>
+                <td>{{ i.homework_note }}</td>
+                <td>{{ i.note|date:"Y-m-d" }}</td>
+                <td>{{ i.instance.course_record }}</td>
+                <td hidden>{{ i.course_record }}</td>
+                <td>{{ i.instance.student }}</td>
+                <td hidden>{{ i.student }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    </form>
+    {{ html|safe }}
+{% endblock %}

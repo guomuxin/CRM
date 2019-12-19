@@ -20,7 +20,7 @@
 #     url(r'^app01/',include('app01.urls',namespace='app01'))
 #
 # ]
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
 from app01 import views
 urlpatterns = [
@@ -43,5 +43,11 @@ urlpatterns = [
     url(r'^enrollment_add/', views.EnrollmentAddEdit.as_view(),name='enrollment_add'),
     url(r'^enrollment_edit/(\d+)', views.EnrollmentAddEdit.as_view(),name='enrollment_edit'),
     url(r'^enrollment_del/(\d+)', views.EnrollmentDel.as_view(),name='enrollment_del'),
+    url(r'^CourseRecord/info/', views.CourseRecordInfo.as_view(),name='coure_record_info'),
+    url(r'^CourseRecord/add/', views.CourseRecordAddEdit.as_view(),name='coure_record_add'),
+    url(r'^CourseRecord/edit/(\d+)', views.CourseRecordAddEdit.as_view(),name='coure_record_edit'),
+    url(r'^CourseRecord/del/(\d+)', views.CourseRecordDel.as_view(),name='coure_record_del'),
+    url(r'^studyRecord/info/', views.StudyRecordInfo.as_view(), name='studyRecord_info'),
+    url(r'^rbac/', include('rbac.urls', namespace='rbac'))
 
 ]

@@ -1,0 +1,108 @@
+{% extends 'starter.html' %}
+{% load mytags %}
+{% block title %}
+    报名表
+{% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="get" style="height: 30px;margin-bottom: -30px" class="">
+            {#            {% csrf_token %}#}
+            <select name="search" id="search" class="pull-left" style="height: 100%">
+                <option value="customer__name__contains">姓名</option>
+                <option value="status__contains">跟进状态</option>
+            </select>
+            <input type="text" id="search_content" name="search_content" class="pull-left" style="height: 100%">
+            <input type="submit" id="sub_search" class="pull-left" style="height: 100%" value="搜索">
+        </form>
+        <a href="{% url 'coure_record_add' %}">
+            <button class="btn btn-danger pull-right" style="margin-bottom: 10px">添加课程记录</button>
+        </a>
+    </div>
+ <span class="pull-right" style="height: 30px;margin-bottom: -30px;margin-right: 20px">
+        <select name="action" id="action" class="pull-left" style="height: 100%">
+            <option value="bulk_add_studyRecord">批量添加学习记录</option>
+        </select>
+        <button type="button" id="go">执行</button>
+    </span>
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>全选/取消<input type="checkbox" id="all"></th>
+            <th>序号</th>
+            <th>节次</th>
+            <th>上课日期</th>
+            <th>本节课程标题</th>
+            <th>本节课程内容</th>
+            <th>本节作业标题</th>
+            <th>作业描述</th>
+            <th>班级</th>
+            <th>讲师</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in coureRecord_all %}
+            <tr>
+                <td><input type="checkbox" name="choice" value="{{ i.id }}">{{ i.id }}</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.day_num }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.course_title }}</td>
+                <td>{{ i.course_memo|date:"Y-m-d" }}</td>
+                <td>{{ i.homework_title }}</td>
+                <td>{{ i.homework_memo }}</td>
+                <td>{{ i.re_class }}</td>
+                <td>{{ i.enrolment_class }}</td>
+
+                <td style="text-align: center">
+                    <a href="{% url_handle 'coure_record_edit' i.id request %}" title="编辑">
+                        <li class="fa fa-pencil"></li>
+                    </a>
+                    &nbsp|&nbsp
+                    <a href="{% url_handle 'coure_record_del' i.id request %}" title="删除">
+                        <li class="fa fa-remove"></li></td>
+                </a>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {{ html|safe }}
+{% endblock %}
+{% block js %}
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+        $('#all').click(function () {
+            console.log($(this).prop('checked'))
+            if ($(this).prop('checked')) {
+                $('[type=checkbox]').prop('checked', true)
+            } else {
+                $('[type=checkbox]').prop('checked', false)
+
+            }
+        })
+    </script>
+    <script>
+        $('#go').click(function () {
+            action = $('#action').val()
+            cids_list = []
+            cids = $("[name='choice']:checked")
+            for(var i=0;i<cids.length;i++){
+                cids_list.push(cids.eq(i).val())
+            }
+            console.log(action,cids_list)
+            cids_list = JSON.stringify(cids_list)
+            $.ajax({
+                url:'',
+                type:'post',
+                data:{action:action, cids_list:cids_list, 'csrfmiddlewaretoken':'{{ csrf_token }}'},
+                success:function (res) {
+                    console.log(res)
+                }
+            })
+        })
+    </script>
+
+{% endblock %}

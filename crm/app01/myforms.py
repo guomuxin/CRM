@@ -122,3 +122,25 @@ class EnrollmentForm(forms.ModelForm):
                 continue
             i.widget.attrs.update({'class':'form-control'})
 
+
+
+class CourseRecordForm(forms.ModelForm):
+    class Meta:
+        model = models.CourseRecord
+        exclude = ['scoring_point','has_homework']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for i in self.fields.values():
+            i.widget.attrs.update({'class':'form-control'})
+
+
+class StudyRecordForm(forms.ModelForm):
+    class Meta:
+        model = models.StudyRecord
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for i in self.fields.values():
+            i.widget.attrs.update({'class':'form-control'})
